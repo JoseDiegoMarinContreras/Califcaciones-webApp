@@ -7,5 +7,5 @@ app.get(/.*/, function(req, res){
     res.sendFile(__dirname + "/dist/index.html");
 });
 app.listen(port);
-
+// /.*/
 console.log("Servidor corriendo...")

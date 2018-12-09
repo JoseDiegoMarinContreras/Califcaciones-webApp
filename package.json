@@ -15,6 +15,7 @@
   "author": "Agustin Hector_Ivan Jose_Diego Irving_Yair",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.16.4"
+    "express": "^4.16.4",
+    "lodash": "^4.17.11"
   }
 }
