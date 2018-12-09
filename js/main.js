@@ -1,7 +1,28 @@
 var dataTablaAlumnos;
+var operacionAlAlumno;
 
 document.addEventListener("DOMContentLoaded", function() {
     cargarDatosTabla();
+
+    //=============== CONFIGURACION DE CONTEXT MENU ===============
+    $.contextMenu({
+      selector: '.context-menu-one',
+      items: {
+        key: {
+          name: "Promedio del alumno",
+          callback: obtenerPromedio
+        },
+        key2: {
+            name: "Agregar materia al alumno",
+            callback: agregarMateria
+          },
+      },
+      events: {
+        show: function(opt){
+          operacionAlAlumno = crearFn(this);
+        }
+      }
+    });
 
     //=============== EVENTOS ===============
     let realizarBusqueda = () => {
@@ -57,7 +78,7 @@ function insertDatosTablaAlmns(dataAlumns){
     let cuerpoTabla = $("#tablaCalf tbody");
     cuerpoTabla.html("");
     _.forEach(dataAlumns, function(alumno){
-        cuerpoTabla.append(`<tr>
+        cuerpoTabla.append(`<tr class="context-menu-one">
             <td>${alumno.No_Control}</td>
             <td>${alumno.NombreCompleto}</td>
             <td>${alumno.Nombre_Materia}</td>
@@ -68,4 +89,35 @@ function insertDatosTablaAlmns(dataAlumns){
 
 function filtrarDatos(data, filtro, valorFiltro){
     insertDatosTablaAlmns(_.filter(data, (alumno) => String(alumno[filtro]).toLowerCase().includes(valorFiltro.toLowerCase())));
+}
+
+function crearFn(elemento){
+  let noControl = $($(elemento).children()[0]).html();
+  return function(operacion){
+    const proxyurl = "https://cors-anywhere.herokuapp.com/";
+    const url = `https://app-calificaciones.herokuapp.com/plf/alumnos/${noControl}`;
+    fetch(proxyurl+url)
+      .then(response => response.json())
+      .then((dataAlumnosJson) => {
+        operacion(dataAlumnosJson[0])
+      });
+  }
+}
+
+function obtenerPromedio(){
+  operacionAlAlumno((alumno) => {
+    console.log(alumno);
+    let val = `Promdeio del alumno ${alumno.Nombres} ${alumno.Apellidos}\n`;
+
+    let promedio = _.reduce(alumno.Materias, function(sum, materia) {
+      val += `\tMateria: ${materia.Nombre_Materia}, Calificacion: ${materia.Calificacion}\n`;
+      return sum + (materia.Calificacion/alumno.Materias.length);
+    }, 0);
+    val += `Promedio: ${promedio}`;
+    alert(val);
+  });
+}
+
+function agregarMateria(){
+  operacionAlAlumno
 }
