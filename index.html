@@ -7,26 +7,27 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
         <script src="./js/utils/jQuery-3.3.1.js"></script>
+        <script src="./js/utils/sweetAlert2/dist/sweetalert2.all.min.js"></script>
         <script src="./js/utils/lodash.js"></script>
     </head>
     <body style="overflow: auto; padding: 5%;">
         <div class="row">
             <div class="col-sm-3">
-                <select class="form-control" style="width: 98%;">
+                <select class="form-control" id="cmbTipFiltro" style="width: 104%;">
                     <option value="0">Seleccione una opcion</option>
-                    <option value="1">Numero Control</option>
-                    <option value="2">Nombre</option>
-                    <option value="3">Materia</option>
-                    <option value="4">Calificacion</option>
+                    <option value="No_Control">Número de control</option>
+                    <option value="NombreCompleto">Nombre</option>
+                    <option value="Nombre_Materia">Materia</option>
+                    <option value="Calificacion">Calificacion</option>
                 </select>
             </div>
 
             <div class="col-sm-7">
-                <input type="text" placeholder="Valor por filtar" class="form-control" style="width: 98%;">
+                <input id="valorFiltro" type="text" placeholder="Valor por filtar" class="form-control" style="width: 98%;">
             </div>
 
             <div class="col-sm-2" >
-                <button class="btn btn-secondary" style="width: 65%;">Filtar</button>
+                <button class="btn btn-secondary" id="btnFiltrar" style="width: 65%;">Filtar</button>
             </div>
         </div>
         <br>
@@ -38,7 +39,7 @@
             <table class="table table-hover" id="tablaCalf">
                 <thead>
                     <tr>
-                        <th scope="col">No. Control</th>
+                        <th scope="col">Número de control</th>
                         <th scope="col">Nombre Completo</th>
                         <th scope="col">Materia</th>
                         <th scope="col">Calificacion</th>
