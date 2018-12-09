@@ -60,16 +60,15 @@ function fetchDatAlumnos(){
 
 function procesarDatosAlumnos(rawDataAlumns){
     dataTablaAlumnos=[];
-    _.forEach(rawDataAlumns, function(alumno){
-        _.map(alumno.Materias, function(materia){
-            let wrapped = _(dataTablaAlumnos).push({
-                No_Control: alumno.No_Control,
-                NombreCompleto: alumno.Apellidos + " " + alumno.Nombres,
-                Nombre_Materia: materia.Nombre_Materia,
-                Calificacion: materia.Calificacion
-            });
-            wrapped.commit();
-        });
+
+    _.map(rawDataAlumns, function(alumno){
+      let wrapped = _(dataTablaAlumnos).push({
+        No_Control: alumno.No_Control,
+        NombreCompleto: alumno.Apellidos + " " + alumno.Nombres,
+        Telefono: alumno.Telefono,
+        Promedio: _.reduce(alumno.Materias, (sum, materia) => sum + (materia.Calificacion/alumno.Materias.length), 0)
+      });
+      wrapped.commit();
     });
     insertDatosTablaAlmns(dataTablaAlumnos);
 }
@@ -81,8 +80,8 @@ function insertDatosTablaAlmns(dataAlumns){
         cuerpoTabla.append(`<tr class="context-menu-one">
             <td>${alumno.No_Control}</td>
             <td>${alumno.NombreCompleto}</td>
-            <td>${alumno.Nombre_Materia}</td>
-            <td>${alumno.Calificacion}</td>
+            <td>${alumno.Telefono}</td>
+            <td>${alumno.Promedio}</td>
         </tr>`);
     });
 }
@@ -107,14 +106,22 @@ function crearFn(elemento){
 function obtenerPromedio(){
   operacionAlAlumno((alumno) => {
     console.log(alumno);
-    let val = `Promdeio del alumno ${alumno.Nombres} ${alumno.Apellidos}\n`;
+    let val = `<ul class="list-group">
+                  <li class="list-group-item active">Promdeio del alumno ${alumno.Nombres} ${alumno.Apellidos}</li>`;
 
     let promedio = _.reduce(alumno.Materias, function(sum, materia) {
-      val += `\tMateria: ${materia.Nombre_Materia}, Calificacion: ${materia.Calificacion}\n`;
+      val += `<li class="list-group-item"><strong>Materia:</strong> ${materia.Nombre_Materia}, <strong>Calificacion:</strong> ${materia.Calificacion}</li>`;
       return sum + (materia.Calificacion/alumno.Materias.length);
     }, 0);
-    val += `Promedio: ${promedio}`;
-    alert(val);
+    val += `<li class="list-group-item"><strong>Promedio:</strong> ${promedio}</li></ul>`;
+
+    Swal({
+      title: '<strong>Datos</strong>',
+      type: 'info',
+      html: val,
+      showCloseButton: true,
+    });
+
   });
 }
 
