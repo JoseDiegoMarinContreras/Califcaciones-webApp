@@ -16,7 +16,7 @@ document.addEventListener("DOMContentLoaded", function() {
             filtrarDatos(dataTablaAlumnos, opcion, $("#valorFiltro").val());
         }
     };
-    
+
     $("#btnFiltrar").on('click', realizarBusqueda);
     $("#valorFiltro").on('keyup', (evt) => {
         if(evt.which == 13){
@@ -30,7 +30,9 @@ function cargarDatosTabla(){
 }
 
 function fetchDatAlumnos(){
-    fetch("https://app-calificaciones.herokuapp.com/plf/alumnos")
+  const proxyurl = "https://cors-anywhere.herokuapp.com/";
+  const url = "https://app-calificaciones.herokuapp.com/plf/alumnos";
+  fetch(proxyurl+url)
         .then(response => response.json())
             .then((dataAlumnosJson) => procesarDatosAlumnos(dataAlumnosJson));
 }
