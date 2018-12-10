@@ -164,13 +164,17 @@ function agregarMateria(){
 
     Swal({
       title: '<strong>Datos de la Materia</strong>',
-      type: 'question',
+      //type: 'question',
       width: 600,
       html: form,
       showCancelButton: true,
       confirmButtonText: "Aceptar",
       showConfirmButton: true,
       cancelButtonText: "Cancelar",
+      imageUrl:'http://euchems-seville2016.eu/wp-content/uploads/2015/09/registro.png',
+      imageWidth: 117,
+      imageHeight: 117,
+      preConfirm: () => validarFormAddMateria()
     }).then((resultado) => {
       if(resultado.value){
         const proxyurl = "https://cors-anywhere.herokuapp.com/";
@@ -229,12 +233,15 @@ function agregarAlumno(){
 
   Swal({
     title: '<strong>Datos del Alumno</strong>',
-    type: 'question',
+    //type: 'question',
     html: form,
     showCancelButton: true,
     confirmButtonText: "Aceptar",
     showConfirmButton: true,
     cancelButtonText: "Cancelar",
+    imageUrl:'http://psicosaludmendoza.com.ar/formacion/wp-content/uploads/2017/05/entradas.png',
+    imageWidth: 117,
+    imageHeight: 117,
     preConfirm: () => validarFormAddAlumno()
   }).then((resultado) => {
     if(resultado.value){
