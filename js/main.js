@@ -170,7 +170,7 @@ function agregarMateria(){
       showCancelButton: true,
       confirmButtonText: "Aceptar",
       showConfirmButton: true,
-      cancelButtonText: "Cancelar"
+      cancelButtonText: "Cancelar",
     }).then((resultado) => {
       if(resultado.value){
         const proxyurl = "https://cors-anywhere.herokuapp.com/";
@@ -179,6 +179,7 @@ function agregarMateria(){
           Codigo_Materia: $("#frmClvMat").val(),
           Nombre_Materia: $("#frmNmbMat").val(),
           Calificacion: $("#frmClfMat").val()
+          
         };
 
         console.log(JSON.stringify(json));
@@ -271,7 +272,7 @@ function validarFormAddAlumno(){
   let msjErr = "";
 
   if(noCtrl == "" || isNaN(Number(noCtrl))){
-    msjErr += "<li><div class='float-left'>Numero de control.</div></li>";
+    msjErr += "<li><div class='float-left'>Número de control.</div></li>";
   }
   if(nombAlm == ""){
     msjErr += "<li><div class='float-left'>Nombres.</div></li>";
@@ -280,7 +281,7 @@ function validarFormAddAlumno(){
     msjErr += "<li><div class='float-left'>Apellidos.</div></li>";
   }
   if(telefono == "" || isNaN(Number(telefono))){
-    msjErr += "<li><div class='float-left'>Numero de telefono.</div></li>";
+    msjErr += "<li><div class='float-left'>Número de telefono.</div></li>";
   }
 
   if(msjErr == ""){
@@ -305,7 +306,7 @@ function validarFormAddMateria(){
     msjErr += "<li><div class='float-left'>Nombre de la materia.</div></li>";
   }
   if(calificacionMat == ""){
-    msjErr += "<li><div class='float-left'>Calificacion de la materia.</div></li>";
+    msjErr += "<li><div class='float-left'>Calificación de la materia.</div></li>";
   }
 
   if(msjErr == ""){
