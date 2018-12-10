@@ -129,7 +129,10 @@ function obtenerPromedio(){
 
     Swal({
       title: '<strong>Materias Asignadas</strong>',
-      type: 'info',
+      //type: 'info',
+      imageUrl:'http://euchems-seville2016.eu/wp-content/uploads/2015/09/registro.png',
+      imageWidth: 117,
+      imageHeight: 117,
       width: 600,
       html: val,
       showCloseButton: true,
