@@ -9,7 +9,7 @@ document.addEventListener("DOMContentLoaded", function() {
       selector: '.context-menu-one',
       items: {
         key: {
-          name: "Promedio del alumno",
+          name: "Consultar materias del alumno",
           callback: obtenerPromedio
         },
         key2: {
@@ -119,7 +119,7 @@ function crearFn(elemento){
 function obtenerPromedio(){
   operacionAlAlumno((alumno) => {
     let val = `<ul class="list-group">
-                  <li class="list-group-item active">Promdeio del alumno ${alumno.Nombres} ${alumno.Apellidos}</li>`;
+                  <li class="list-group-item active">Alumno: ${alumno.Nombres} ${alumno.Apellidos}</li>`;
 
     let promedio = _.reduce(alumno.Materias, function(sum, materia) {
       val += `<li class="list-group-item"><div style="float: left!important;"><strong>Materia:</strong> ${materia.Nombre_Materia}, <strong>Calificacion:</strong> ${materia.Calificacion}</div></li>`;
@@ -128,7 +128,7 @@ function obtenerPromedio(){
     val += `<li class="list-group-item"><div style="float: left!important;"><strong>Promedio:</strong> ${promedio}</div></li></ul>`;
 
     Swal({
-      title: '<strong>Datos</strong>',
+      title: '<strong>Materias Asignadas</strong>',
       type: 'info',
       width: 600,
       html: val,
@@ -143,17 +143,17 @@ function agregarMateria(){
   operacionAlAlumno((alumno) => {
     let form = `
     <div class="form-group">
-      <label style="float: left!important;"><strong>Clave de la materia</strong></label>
+      <label style="float: left!important;"><strong>Clave</strong></label>
       <input type="text" class="form-control" id="frmClvMat" placeholder="Ingresar clave de materia">
     </div>
 
     <div class="form-group">
-      <label style="float: left!important;"><strong>Nombre de la materia</strong></label>
+      <label style="float: left!important;"><strong>Nombre</strong></label>
       <input type="text" class="form-control" id="frmNmbMat" placeholder="Ingresar nombre de la materia">
     </div>
 
     <div class="form-group">
-      <label style="float: left!important;"><strong>Calificacion</strong></label>
+      <label style="float: left!important;"><strong>Calificación</strong></label>
       <input type="number" class="form-control" id="frmClfMat" placeholder="Ingresar calificacion de la materia">
     </div>
 
@@ -163,7 +163,7 @@ function agregarMateria(){
     `;
 
     Swal({
-      title: '<strong>Agregar Materia</strong>',
+      title: '<strong>Datos de la Materia</strong>',
       type: 'question',
       width: 600,
       html: form,
@@ -202,12 +202,12 @@ function agregarMateria(){
 function agregarAlumno(){
   let form = `
   <div class="form-group">
-    <label style="float: left!important;">Numero de control</label>
+    <label style="float: left!important;">Número de control</label>
     <input type="text" class="form-control" id="frmNoCtrl" placeholder="Ingresar numero de control">
   </div>
 
   <div class="form-group">
-    <label style="float: left!important;">Nombre del alumno</label>
+    <label style="float: left!important;">Nombre</label>
     <input type="text" class="form-control" id="frmNombAlm" placeholder="Ingresar nombre">
   </div>
 
@@ -217,7 +217,7 @@ function agregarAlumno(){
   </div>
 
   <div class="form-group">
-    <label style="float: left!important;">Numero telefonico</label>
+    <label style="float: left!important;">Número telefónico</label>
     <input type="cellphone" class="form-control" id="frmTelefono" placeholder="Ingresar Telefono">
   </div>
 
@@ -227,7 +227,7 @@ function agregarAlumno(){
   `;
 
   Swal({
-    title: '<strong>Agregar Alumno</strong>',
+    title: '<strong>Datos del Alumno</strong>',
     type: 'question',
     html: form,
     showCancelButton: true,
