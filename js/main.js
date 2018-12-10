@@ -49,7 +49,8 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 
 function cargarDatosTabla(){
-    fetchDatAlumnos();
+  
+  fetchDatAlumnos();
 }
 
 function fetchDatAlumnos(){
@@ -182,7 +183,7 @@ function agregarMateria(){
 
         console.log(JSON.stringify(json));
 
-        fetch(proxyurl+url, {
+        fetch(proxyurl+url+`/${alumno.No_Control}`, {
                   body: JSON.stringify(json),
                   method: "PUT",
                   headers: {
@@ -278,7 +279,7 @@ function validarFormAddAlumno(){
   if(apellidos == ""){
     msjErr += "<li><div class='float-left'>Apellidos.</div></li>";
   }
-  if(telefono == ""){
+  if(telefono == "" || isNaN(Number(telefono))){
     msjErr += "<li><div class='float-left'>Numero de telefono.</div></li>";
   }
 
