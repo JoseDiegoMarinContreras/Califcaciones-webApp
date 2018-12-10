@@ -31,7 +31,7 @@ document.addEventListener("DOMContentLoaded", function() {
             Swal({
                 type: 'error',
                 title: 'Error',
-                text: 'Opcion de filtro no permitido'
+                text: 'Seleccione un filtro válido'
             });
         }else{
             filtrarDatos(dataTablaAlumnos, opcion, $("#valorFiltro").val());
@@ -154,7 +154,7 @@ function agregarMateria(){
 
     <div class="form-group">
       <label style="float: left!important;"><strong>Calificación</strong></label>
-      <input type="number" class="form-control" id="frmClfMat" placeholder="Ingresar calificacion de la materia">
+      <input type="number" class="form-control" id="frmClfMat" placeholder="Ingresar calificación de la materia">
     </div>
 
     <div style="width: 100%; background: #FF0000;">
@@ -203,7 +203,7 @@ function agregarAlumno(){
   let form = `
   <div class="form-group">
     <label style="float: left!important;">Número de control</label>
-    <input type="text" class="form-control" id="frmNoCtrl" placeholder="Ingresar numero de control">
+    <input type="text" class="form-control" id="frmNoCtrl" placeholder="Ingresar número de control">
   </div>
 
   <div class="form-group">
@@ -218,7 +218,7 @@ function agregarAlumno(){
 
   <div class="form-group">
     <label style="float: left!important;">Número telefónico</label>
-    <input type="cellphone" class="form-control" id="frmTelefono" placeholder="Ingresar Telefono">
+    <input type="cellphone" class="form-control" id="frmTelefono" placeholder="Ingresar Teléfono">
   </div>
 
   <div style="width: 100%; background: #FF0000;">
