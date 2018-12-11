@@ -38,6 +38,7 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     };
 
+    //=============== EVENTO BOTÓN FILTRAR ===============
     $("#btnFiltrar").on('click', realizarBusqueda);
     $("#valorFiltro").on('keyup', (evt) => {
         if(evt.which == 13){
@@ -45,11 +46,11 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     });
 
+    //=============== EVENTO BOTÓN AGREGAR ALUMNO ===============
     $("#btnAddAlumno").on('click', agregarAlumno);
 });
 
 function cargarDatosTabla(){
-  
   fetchDatAlumnos();
 }
 
@@ -68,12 +69,13 @@ function fetchDatAlumnos(){
 
 function procesarDatosAlumnos(rawDataAlumns){
     dataTablaAlumnos=[];
-
+    //=============== MÉTODO MAP ===============
     _.map(rawDataAlumns, function(alumno){
       let wrapped = _(dataTablaAlumnos).push({
         No_Control: alumno.No_Control,
         NombreCompleto: alumno.Apellidos + " " + alumno.Nombres,
         Telefono: alumno.Telefono,
+        //=============== MÉTODO REDUCE ===============
         Promedio: _.reduce(alumno.Materias, (sum, materia) => sum + (materia.Calificacion/alumno.Materias.length), 0)
       });
       wrapped.commit();
@@ -95,6 +97,7 @@ function insertDatosTablaAlmns(dataAlumns){
 }
 
 function filtrarDatos(data, filtro, valorFiltro){
+    //=============== MÉTODO FILTER ===============
     insertDatosTablaAlmns(_.filter(data, (alumno) => String(alumno[filtro]).toLowerCase().includes(valorFiltro.toLowerCase())));
 }
 
@@ -120,7 +123,7 @@ function obtenerPromedio(){
   operacionAlAlumno((alumno) => {
     let val = `<ul class="list-group">
                   <li class="list-group-item active">Alumno: ${alumno.Nombres} ${alumno.Apellidos}</li>`;
-
+    //=============== MÉTODO REDUCE ===============
     let promedio = _.reduce(alumno.Materias, function(sum, materia) {
       val += `<li class="list-group-item"><div style="float: left!important;"><strong>Materia:</strong> ${materia.Nombre_Materia}, <strong>Calificacion:</strong> ${materia.Calificacion}</div></li>`;
       return sum + (materia.Calificacion/alumno.Materias.length);
@@ -129,7 +132,6 @@ function obtenerPromedio(){
 
     Swal({
       title: '<strong>Materias Asignadas</strong>',
-      //type: 'info',
       imageUrl:'http://euchems-seville2016.eu/wp-content/uploads/2015/09/registro.png',
       imageWidth: 117,
       imageHeight: 117,
@@ -142,7 +144,6 @@ function obtenerPromedio(){
 }
 
 function agregarMateria(){
-
   operacionAlAlumno((alumno) => {
     let form = `
     <div class="form-group">
@@ -167,7 +168,6 @@ function agregarMateria(){
 
     Swal({
       title: '<strong>Datos de la Materia</strong>',
-      //type: 'question',
       width: 600,
       html: form,
       showCancelButton: true,
@@ -186,7 +186,6 @@ function agregarMateria(){
           Codigo_Materia: $("#frmClvMat").val(),
           Nombre_Materia: $("#frmNmbMat").val(),
           Calificacion: $("#frmClfMat").val()
-          
         };
 
         console.log(JSON.stringify(json));
@@ -201,7 +200,13 @@ function agregarMateria(){
                 console.log(response);
                 cargarDatosTabla();
               });
-
+        Swal({
+          position: 'center',
+          type: 'success',
+          title: 'Materia registrada con éxito',
+          showConfirmButton: false,
+          timer: 1700
+        })
       }
     });
   });
@@ -211,7 +216,7 @@ function agregarAlumno(){
   let form = `
   <div class="form-group">
     <label style="float: left!important;">Número de control</label>
-    <input type="text" class="form-control" id="frmNoCtrl" placeholder="Ingresar número de control">
+    <input type="number" class="form-control" id="frmNoCtrl" placeholder="Ingresar número de control">
   </div>
 
   <div class="form-group">
@@ -221,7 +226,7 @@ function agregarAlumno(){
 
   <div class="form-group">
     <label style="float: left!important;">Apellidos</label>
-    <input type="tel" class="form-control" id="frmApellidos" placeholder="Ingresar apellidos">
+    <input type="text" class="form-control" id="frmApellidos" placeholder="Ingresar apellidos">
   </div>
 
   <div class="form-group">
@@ -269,6 +274,13 @@ function agregarAlumno(){
               console.log(response);
               cargarDatosTabla();
             });
+      Swal({
+        position: 'center',
+        type: 'success',
+        title: 'Alumno registrado con éxito',
+        showConfirmButton: false,
+        timer: 1700
+      })
     }
   });
 }
@@ -304,6 +316,7 @@ function validarFormAddAlumno(){
 }
 
 function validarFormAddMateria(){
+  
   let claveMat =  $("#frmClvMat").val();
   let nombreMat = $("#frmNmbMat").val();
   let calificacionMat = $("#frmClfMat").val();
@@ -318,7 +331,6 @@ function validarFormAddMateria(){
   if(calificacionMat == ""){
     msjErr += "<li><div class='float-left'>Calificación de la materia.</div></li>";
   }
-
   if(msjErr == ""){
     return true;
   }else{
