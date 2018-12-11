@@ -125,7 +125,7 @@ function obtenerPromedio(){
                   <li class="list-group-item active">Alumno: ${alumno.Nombres} ${alumno.Apellidos}</li>`;
     //=============== MÉTODO REDUCE ===============
     let promedio = _.reduce(alumno.Materias, function(sum, materia) {
-      val += `<li class="list-group-item"><div style="float: left!important;"><strong>Materia:</strong> ${materia.Nombre_Materia}, <strong>Calificacion:</strong> ${materia.Calificacion}</div></li>`;
+      val += `<li class="list-group-item"><div style="float: left!important;"><strong>Materia:</strong> ${materia.Nombre_Materia}, <strong>Calificación:</strong> ${materia.Calificacion}</div></li>`;
       return sum + (materia.Calificacion/alumno.Materias.length);
     }, 0);
     val += `<li class="list-group-item"><div style="float: left!important;"><strong>Promedio:</strong> ${promedio}</div></li></ul>`;
@@ -303,14 +303,14 @@ function validarFormAddAlumno(){
     msjErr += "<li><div class='float-left'>Apellidos.</div></li>";
   }
   if(telefono == "" || isNaN(Number(telefono))){
-    msjErr += "<li><div class='float-left'>Número de telefono.</div></li>";
+    msjErr += "<li><div class='float-left'>Número de teléfono.</div></li>";
   }
 
   if(msjErr == ""){
     return true;
   }else{
 
-    $("#msjErrFormAlm").html(`<strong>Los siguientes campos son requeridos o son erroneos:<br><ul>${msjErr}</ul></strong>`);
+    $("#msjErrFormAlm").html(`<strong>Los siguientes campos son requeridos o son erróneos:<br><ul>${msjErr}</ul></strong>`);
     return false;
   }
 }
@@ -334,7 +334,7 @@ function validarFormAddMateria(){
   if(msjErr == ""){
     return true;
   }else{
-    $("#msjErrFormMat").html(`<strong>Los siguientes campos son requeridos o son erroneos:<br><ul>${msjErr}</ul></strong>`);
+    $("#msjErrFormMat").html(`<strong>Los siguientes campos son requeridos o son erróneos:<br><ul>${msjErr}</ul></strong>`);
     return false;
   }
 }
